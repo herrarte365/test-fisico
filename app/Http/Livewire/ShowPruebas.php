@@ -2,17 +2,21 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Athlete;
 use App\Models\Coach;
-use App\Models\Physical_test;
-use App\Models\Ps_detail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
-
+use Livewire\WithPagination;
 
 class ShowPruebas extends Component
 {
+
+    use WithPagination;
+
+    public $sort      = 'id';
+    public $direction = 'desc';
+    public $search = "";
+
     public $vista = 1; 
     public $test;
 
@@ -26,11 +30,17 @@ class ShowPruebas extends Component
                 $pruebas = DB::table('physical_tests')
                                 ->join('groups', 'physical_tests.group_id', '=', 'groups.id')
                                 ->select('physical_tests.*', 'groups.name', 'groups.gender', 'groups.age')
+                                ->orderBy('physical_tests.'.$this->sort, $this->direction)
                                 ->where('groups.coache_id', '=', Coach::coacheID(Auth::id()))
-                                ->get();
+                                ->where('groups.gender', 'LIKE', '%' . $this->search . '%')
+                                ->orWhere('groups.age', 'LIKE', '%' . $this->search . '%')
+                                ->orWhere('physical_tests.description', 'LIKE', '%' . $this->search . '%')
+                                ->orWhere('physical_tests.id', 'LIKE', '%' . $this->search . '%')
+                                ->paginate(8);
 
                 return view('livewire.prueba.show-pruebas', [
-                    'pruebas' => $pruebas
+                    'pruebas' => $pruebas,
+                    'paginas' => number_format($pruebas->total()/8,0)
                 ]);
 
             break;
@@ -66,6 +76,22 @@ class ShowPruebas extends Component
             break;
 
         } 
+    }
+
+
+    public function order($sort)
+    {   
+        if($this->sort == $sort){            
+            $this->direction = $this->direction == 'asc' ? 'desc' : 'asc';            
+        }else{
+            $this->sort = $sort;
+            $this->direction = 'asc';
+        }
+    }
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
     }
 
 

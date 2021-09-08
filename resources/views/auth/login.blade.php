@@ -1,10 +1,214 @@
-<x-guest-layout>
-    <x-jet-authentication-card>
-        <x-slot name="logo">
-            <x-jet-authentication-card-logo />
-        </x-slot>
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <x-jet-validation-errors class="mb-4" />
+        <title>PROATLETA</title>
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+
+        <style>
+
+        
+  .fade-in {
+    animation: fadeIn ease 1s;
+    -webkit-animation: fadeIn ease 1s;
+    -moz-animation: fadeIn ease 1s;
+    -o-animation: fadeIn ease 1s;
+    -ms-animation: fadeIn ease 1s;
+  }
+  @keyframes fadeIn {
+    0% {
+      opacity:0;
+    }
+    100% {
+      opacity:1;
+    }
+  }
+  
+  @-moz-keyframes fadeIn {
+    0% {
+      opacity:0;
+    }
+    100% {
+      opacity:1;
+    }
+  }
+  
+  @-webkit-keyframes fadeIn {
+    0% {
+      opacity:0;
+    }
+    100% {
+      opacity:1;
+    }
+  }
+  
+  @-o-keyframes fadeIn {
+    0% {
+      opacity:0;
+    }
+    100% {
+      opacity:1;
+    }
+  }
+  
+  @-ms-keyframes fadeIn {
+    0% {
+      opacity:0;
+    }
+    100% {
+      opacity:1;
+  }
+}
+
+
+
+            section.side {
+                background-image: linear-gradient(260deg, #ffffff 0, #ffffff 8.33%, #ffffff 16.67%, #f4ffff 25%, #e2ffff 33.33%, #cdfcf8 41.67%, #b5f2f2 50%, #9de8ee 58.33%, #85dfec 66.67%, #6fd6eb 75%, #59cdeb 83.33%, #45c6ec 91.67%, #35beee 100%);
+                background-size: 100% 102%;
+            }
+                        
+
+            * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+            color: #303433;
+            }
+
+            body {
+            min-height: 100vh;
+            width: 100%;
+            display: grid;
+            margin: 0;
+            grid-template-columns: 1fr 1fr;
+            }
+
+            section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            }
+
+            section.side {
+            background-size: 100% 102%;
+            }
+
+            .side img {
+            width: 65%;
+            max-width: 65%;
+            }
+
+            .login-container {
+            max-width: 450px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            }
+
+            .title {
+            text-transform: uppercase;
+            font-size: 2em;
+            font-weight: bold;
+            text-align: center;
+            letter-spacing: 1px;
+            }
+
+            .separator {
+            width: 150px;
+            height: 4px;
+            background-color: #00DEF4;
+            margin: 24px;
+            }
+
+            .welcome-message {
+            text-align: center;
+            font-size: 1.1em;
+            line-height: 28px;
+            margin-bottom: 30px;
+            color: #696969;
+            }
+
+            .login-form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            }
+
+            .form-control {
+            width: 100%;
+            position: relative;
+            margin-bottom: 24px;
+            }
+
+            input,
+            button {
+            border: none;
+            outline: none;
+            border-radius: 30px;
+            font-size: 1.1em;
+            }
+
+            input {
+            width: 100%;
+            background: #e6e6e6;
+            color: #333;
+            letter-spacing: 0.5px;
+            padding: 14px 64px;
+            }
+
+            input ~ i {
+            position: absolute;
+            left: 32px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+            transition: color   0.4s;
+            }
+
+            input:focus ~ i {
+            color: #843bc7;
+            }
+
+            button.submit {
+            color: #fff;
+            padding: 14px 64px;
+            margin: 32px auto;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: bold;
+            background-image: linear-gradient(to right, #8b33c5, #00DEF4);
+            cursor: pointer;
+            transition: opacity 0.4s;
+            }
+
+            button.submit:hover {
+            opacity: 0.9;
+            }
+
+            /* ----  Responsiveness   ----  */
+            @media (max-width: 780px) {
+
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .side {
+                display: none;
+            }
+            }
+        </style>
+
+    </head>
+    <body>
 
         @if (session('status'))
             <div class="mb-4 font-medium text-sm text-green-600">
@@ -12,37 +216,30 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
+        <section class="side fade-in">
+            <img src="{{ asset('img/login.svg') }}" alt="">
+        </section>
 
-            <div>
-                <x-jet-label for="email" value="{{ __('Email') }}" />
-                <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
+        <section class="main fade-in">
+            <div class="login-container">
+                <p class="title">Bienvenido</p>
+                <div class="separator"></div>
+                <p class="welcome-message">Por Favor, Ingrese sus credenciales para acceder a todos los servicios</p>
+
+                <form class="login-form" method="POST" action="{{ route('login') }}">
+                    @csrf
+                    <div class="form-control">
+                        <input class="rounded-md focus:border-cian-300" type="text" placeholder="Correo Electronico" id="email" type="email" name="email" :value="old('email')" required autofocus autocomplete="off">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="form-control">
+                        <input class="rounded-md focus:border-cian-300" type="password" placeholder="Contraseña" name="password" required autocomplete="off">
+                        <i class="fas fa-lock"></i>
+                    </div>
+
+                    <button class="submit">Iniciar Sesión</button>
+                </form>
             </div>
-
-            <div class="mt-4">
-                <x-jet-label for="password" value="{{ __('Password') }}" />
-                <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
-            </div>
-
-            <div class="block mt-4">
-                <label for="remember_me" class="flex items-center">
-                    <x-jet-checkbox id="remember_me" name="remember" />
-                    <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-                </label>
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
-                @endif
-
-                <x-jet-button class="ml-4">
-                    {{ __('Log in') }}
-                </x-jet-button>
-            </div>
-        </form>
-    </x-jet-authentication-card>
-</x-guest-layout>
+        </section>
+    </body>
+</html>

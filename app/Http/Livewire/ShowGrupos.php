@@ -16,15 +16,24 @@ use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class ShowGrupos extends Component
 {
+
+    use WithPagination;
+
+
     public $vista = 1; 
     public $name, $gender, $age, $municipalityId, $coacheId;
     public $departamento = 0;
     public $grupo;
     public $open = false;
     
+    public $sort      = 'id';
+    public $direction = 'desc';
+    public $search = "";
+
     protected $rules = [
         'name' => 'required',
         'gender' => 'required',
@@ -39,10 +48,15 @@ class ShowGrupos extends Component
             case 1: 
 
                 $grupos = Group::where('coache_id', '=', Coach::coacheID(Auth::id()))
-                                ->get();
+                    ->orderBy($this->sort, $this->direction)
+                    ->where('gender', 'LIKE', '%' . $this->search . '%')
+                    ->orWhere('age', 'LIKE', '%' . $this->search . '%')
+                    ->orWhere('name', 'LIKE', '%' . $this->search . '%')
+                    ->paginate(8);
 
                 return view('livewire.grupo.show-grupos', [
-                    'grupos' => $grupos
+                    'grupos' => $grupos,
+                    'paginas' => number_format($grupos->total()/8,0)
                 ]);
 
             break;
@@ -78,6 +92,21 @@ class ShowGrupos extends Component
                 
             break;
         }
+    }
+
+    public function order($sort)
+    {   
+        if($this->sort == $sort){            
+            $this->direction = $this->direction == 'asc' ? 'desc' : 'asc';            
+        }else{
+            $this->sort = $sort;
+            $this->direction = 'asc';
+        }
+    }
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
     }
 
     #CREAR UN NUEVO GRUPO

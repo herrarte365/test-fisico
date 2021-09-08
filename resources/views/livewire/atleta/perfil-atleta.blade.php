@@ -2,7 +2,7 @@
     <div class="dark:bg-gray-900 overflow-hidden shadow rounded-lg">
         <ul class="breadcrumbs">
             <li class="breadcrumbs__item">
-                <a wire:click="$set('vista', 1)" class="breadcrumbs__link cursor">Atletas</a>
+                <a wire:click="$set('vista', 1)" class="text-gray-100 cursor">Atletas</a>
             </li>
             <li class="breadcrumbs__item">
                 <a class="breadcrumbs__link text-cian-300">Perfil</a>

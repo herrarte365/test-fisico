@@ -8,12 +8,21 @@ use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
+use Livewire\WithPagination;
+
 
 class ShowEntrenadores extends Component
 {
+
+    use WithPagination;
+
     public $vista = 1; 
     public $email, $password, $firstName, $lastName, $numberPhone; 
     public $entrenador; 
+
+    public $sort      = 'id';
+    public $direction = 'desc';
+    public $search = "";
 
     protected $rules = [
         'email' => 'required',
@@ -21,14 +30,18 @@ class ShowEntrenadores extends Component
         'firstName' => 'required',
         'lastName' => 'required',
     ];
-
+ 
     public function render()
     {
         switch($this->vista)
         {
             case 1: 
 
-                $entrenadores = Coach::all();
+                $entrenadores = Coach::orderBy($this->sort, $this->direction)
+                    ->where('first_name', 'LIKE', '%' . $this->search . '%')
+                    ->orWhere('user_id', 'LIKE', '%' . $this->search . '%')
+                    ->orWhere('id', 'LIKE', '%' . $this->search . '%')
+                    ->paginate();
 
                 return view('livewire.entrenador.show-entrenadores', [
                     'entrenadores' => $entrenadores                    
@@ -45,6 +58,21 @@ class ShowEntrenadores extends Component
                 return view('livewire.entrenador.editar-entrenador');
             break;
         }
+    }
+
+    public function order($sort)
+    {   
+        if($this->sort == $sort){            
+            $this->direction = $this->direction == 'asc' ? 'desc' : 'asc';            
+        }else{
+            $this->sort = $sort;
+            $this->direction = 'asc';
+        }
+    }
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
     }
 
     #CREAR UN NUEVO ENTRENADOR

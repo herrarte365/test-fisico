@@ -16,11 +16,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\Livewire;
+use Livewire\WithPagination;
 
 use function PHPUnit\Framework\isNull;
 
 class ShowAtletas extends Component
 {
+
+    use WithPagination;
+
     public $puntajeGeneral = 0; 
     public $nivelGeneral = 0; 
     public $vista = 1;           # VARIABLE PARA DECIDIR QUE VISTA MOSTRAR
@@ -37,6 +41,10 @@ class ShowAtletas extends Component
     public $firstName, $lastName, $gender, $birthdayDate, $establishment, $groupId, $age, $observations;
     
     public $showm=false;
+
+    public $sort      = 'id';
+    public $direction = 'desc';
+    public $search = "";
 
     protected $rules = [
         'firstName' => 'required',
@@ -55,14 +63,17 @@ class ShowAtletas extends Component
             case 1: 
                 
                 $atletas = Athlete::whereIn('group_id', Coach::gruposAsignados(Coach::coacheID()))
-                            ->join('groups', 'Athletes.group_id', '=', 'groups.id')
-                            ->select('athletes.*', 'groups.name')
-                            ->get();
-                
-                //$this->nivelAtleta = Test_results::where()
+                            ->orderBy($this->sort, $this->direction)
+                            ->where('first_name', 'LIKE', '%' . $this->search . '%')
+                            ->orWhere('last_name', 'LIKE', '%' . $this->search . '%')
+                            ->orWhere('id', 'LIKE', '%' . $this->search . '%')
+                            ->paginate(8);
+
+                            //$this->nivelAtleta = Test_results::where()
 
                 return view('livewire.atleta.show-atletas', [
-                    'atletas' => $atletas
+                    'atletas' => $atletas,
+                    'paginas' => $atletas->total()/8
                 ]);   
 
             break;
@@ -147,6 +158,16 @@ class ShowAtletas extends Component
 
         }
 
+    }
+
+    public function order($sort)
+    {   
+        if($this->sort == $sort){            
+            $this->direction = $this->direction == 'asc' ? 'desc' : 'asc';            
+        }else{
+            $this->sort = $sort;
+            $this->direction = 'asc';
+        }
     }
 
     # 🙂 CALCULAR EDADES FORMATO LARGO Y CORTO
@@ -359,7 +380,8 @@ class ShowAtletas extends Component
     }
 
     # actualizar edad y grupo del Atleta
-    public function actualizarAtleta(){
+    public function actualizarAtleta()
+    {
 
         $nuevaEdad = $this->calcularEdad($this->atleta->date_of_birth, 'Y');
 

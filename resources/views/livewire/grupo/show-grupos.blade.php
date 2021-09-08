@@ -14,20 +14,44 @@
                             class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider cursor-pointer"
                             wire:click="order('id')">
                             ID 
-
+                            @if($sort == 'id')
+                                @if($direction == 'asc')
+                                    <i class='bx bx-up-arrow-alt' ></i>
+                                @else
+                                    <i class='bx bx-down-arrow-alt' ></i>
+                                @endif
+                            @else
+                                <i class='bx bx-sort-alt-2' ></i>
+                            @endif
+                        </th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider cursor-pointer"
+                            wire:click="order('age')">
+                            Grupo - Edad
+                            @if($sort == 'age')
+                                @if($direction == 'asc')
+                                    <i class='bx bx-up-arrow-alt' ></i>
+                                @else
+                                    <i class='bx bx-down-arrow-alt' ></i>
+                                @endif
+                            @else
+                                <i class='bx bx-sort-alt-2' ></i>
+                            @endif
 
                         </th>
                         <th scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider cursor-pointer"
-                            wire:click="order('title')">
-                            Nombre
-
-                        </th>
-                        <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider cursor-pointer"
-                            wire:click="order('content')">
+                            wire:click="order('gender')">
                             Genero
-
+                            @if($sort == 'gender')
+                                @if($direction == 'asc')
+                                    <i class='bx bx-up-arrow-alt' ></i>
+                                @else
+                                    <i class='bx bx-down-arrow-alt' ></i>
+                                @endif
+                            @else
+                                <i class='bx bx-sort-alt-2' ></i>
+                            @endif
                         </th>
                         <th scope="col" class="relative px-6 py-3">
                             <span class="sr-only">Perfil</span>
@@ -64,8 +88,49 @@
                 </tbody>
             </table>
         @else
-            <div class="px-6 py-4 text-gray-50">
+            <div class="px-6 py-4 text-gray-50 bg-cool-800">
                 No se encontraron Grupos para mostrar.
+            </div>
+        @endif
+         @if($grupos->hasPages())
+            <div class="px-6 py-3 bg-cool-800 text-white">
+                 <nav role="navigation" aria-label="Pagination Navigation" class="flex justify-between">
+            <span>
+                {{-- Previous Page Link --}}
+                @if ($grupos->onFirstPage())
+                    <span class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-text-white bg-gray-500 border border-none cursor-default leading-5 rounded-md">
+                        Anterior
+                    </span>
+                @else
+                    <button wire:click="previousPage" wire:loading.attr="disabled" rel="prev" class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-cian-500 border border-none leading-5 rounded-md hover:text-text-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-cian-500 active:text-gray-700 transition ease-in-out duration-150">
+                        Anterior
+                    </button>
+                @endif
+            </span>
+            
+            <span>
+
+                <div class="pt-2">
+                Página {{ $grupos->currentPage() }} de {{ $paginas }}
+                </div>
+
+            </span>
+
+
+            <span>
+                {{-- Next Page Link --}}
+                @if ($grupos->hasMorePages())
+                    <button wire:click="nextPage" wire:loading.attr="disabled" rel="next" class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-cian-500 border border-none leading-5 rounded-md hover:text-text-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
+                        Siguiente
+                    </button>
+                @else
+                    <span class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-text-white bg-gray-500 border border-none cursor-default leading-5 rounded-md">
+                        Siguiente
+                    </span>
+                @endif
+            </span>
+        </nav>
+
             </div>
         @endif
     </x-table>

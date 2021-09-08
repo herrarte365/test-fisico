@@ -36,7 +36,7 @@
 
                             <a href="{{ route('profile.show') }}" class="nav__link {{ Request::path() == "user/profile" ? "active" : "" }}">
                                 <i class='bx bx-user nav__icon'></i>
-                                <span class="nav__name dark:text-white">Perfil</span>
+                                <span class="nav__name dark:text-white">Configuración</span>
                             </a>
 
                             
