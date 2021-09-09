@@ -72,26 +72,16 @@
                 <thead class="dark:bg-gray-900">
                     <tr>
                         <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider cursor-pointer"
-                            wire:click="order('id')">
+                            class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
                             ID
-
-
                         </th>
                         <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider cursor-pointer"
-                            wire:click="order('title')">
+                            class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
                             Atleta
-
                         </th>
                         <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider cursor-pointer"
-                            wire:click="order('content')">
+                            class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
                             Edad
-
-                        </th>
-
-                        <th scope="col" class="relative px-6 py-3">
                         </th>
                     </tr>
                 </thead>
@@ -116,16 +106,12 @@
                                     {{ $atleta->age }}
                                 </div>
                             </td>
-
-                            <td class="py-4 text-white text-left text-sm font-medium">
-                                <a wire:click="show({{ $atleta }})">Perfil</a>
-                            </td>
                         </tr>
                     @endforeach
-                </tbody>
+                </tbody> 
             </table>
         @else
-            <div class="px-6 py-4 text-gray-50">
+            <div class="px-6 py-4 text-gray-50 fade-in">
                 No hay Atletas asignados a este grupo
             </div>
         @endif

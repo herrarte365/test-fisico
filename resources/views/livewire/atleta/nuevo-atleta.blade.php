@@ -17,7 +17,7 @@
 
                         <div class="col-span-6 sm:col-span-3">
                             <x-label>Nombres</x-label>
-                            <x-input wire:model="firstName" class="w-full" />
+                            <x-input autofocus wire:model="firstName" class="w-full" />
                             @error('firstName')
                                 <p class="text-red-600 md:text-red-600">
                                     {{ $message }}
@@ -47,7 +47,7 @@
 
                         <div class="col-span-3 sm:col-span-3">
                             <x-label>Edad</x-label>
-                            <x-input wire:model="age" class="w-full"/>
+                            <x-input disabled wire:model="age" class="w-full"/>
                         </div>
 
                         <div class="col-span-3 sm:col-span-3">

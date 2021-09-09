@@ -124,7 +124,7 @@
 
                             <td class="py-4 text-white text-left text-sm font-medium">
                                 <button wire:click="show({{ $atleta }})">
-                                    <i title="Perfil de Atleta" class='bx bx-user hover:bg-cian-500' ></i>
+                                    <i title="Perfil de Atleta" class='bx bx-user hover:text-cian-300' ></i>
                                 </button>
                             </td>
                         </tr>
@@ -132,7 +132,7 @@
                 </tbody>
             </table>
         @else
-            <div class="px-6 py-4 text-gray-50 bg-cool-800">
+            <div class="px-6 py-4 text-gray-50 bg-cool-800 fade-in">
                 No se encontraron Atletas para mostrar.
             </div>
         @endif

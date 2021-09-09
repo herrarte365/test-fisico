@@ -88,7 +88,7 @@
                 </tbody>
             </table>
         @else
-            <div class="px-6 py-4 text-gray-50 bg-cool-800">
+            <div class="px-6 py-4 text-gray-50 bg-cool-800 fade-in">
                 No se encontraron Grupos para mostrar.
             </div>
         @endif

@@ -73,7 +73,7 @@ class ShowAtletas extends Component
 
                 return view('livewire.atleta.show-atletas', [
                     'atletas' => $atletas,
-                    'paginas' => $atletas->total()/8
+                    'paginas' => number_format($atletas->total()/8,0)
                 ]);   
 
             break;
