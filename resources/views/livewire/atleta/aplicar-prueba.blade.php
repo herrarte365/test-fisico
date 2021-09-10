@@ -229,7 +229,6 @@
                 </div>
                 <div class="px-4 py-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4">
                         <a href="{{ route('reportePruebaAtletaPDF', $this->prueba->physical_test_id) }}"><x-button-danger class="w-full">PDF</x-button-danger></a>
-                        <x-button-green class="w-full">Excel</x-button-green>
                 </div>
             </div>
         </div>

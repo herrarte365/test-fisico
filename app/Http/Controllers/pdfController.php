@@ -58,8 +58,8 @@ class pdfController extends Controller
         ]);
 
         $pdf->setPaper('A4', 'landscape');
-		return $pdf->download('prueba.pdf');
-        # return $pdf->stream();
+		# return $pdf->download('prueba.pdf');
+        return $pdf->stream();
     }
 
     # el id es el id del test del atleta
@@ -117,8 +117,8 @@ class pdfController extends Controller
 
         $pdf->setPaper('letter');
         ob_end_clean();
-		return $pdf->download('prueba.pdf');
-        # return $pdf->stream();
+		# return $pdf->download('prueba.pdf');
+        return $pdf->stream();
 
 
 

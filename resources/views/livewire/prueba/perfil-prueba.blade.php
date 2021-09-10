@@ -22,7 +22,6 @@
                         </p>
                     </div> 
                     <div>
-                        <x-button-green class="px-3 py-2">Excel</x-button-green>
                         <a href="{{ route('reportePruebaGrupoPDF', $test[0]->id) }}"><x-button-danger class="px-3 py-2">pdf</x-button-danger></a>
                     </div>
                 </div>
