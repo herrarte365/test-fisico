@@ -19,11 +19,12 @@
                                 <i class='bx bx-group nav__icon'></i>
                                 <span class="nav__name dark:text-white">Grupos</span>
                             </a>
-
-                            <a href="{{ route('entrenadores') }}" class="nav__link {{ Request::path() == "entrenadores" ? "active" : "" }}">
-                                <i class='bx bx-user-voice nav__icon'></i>
-                                <span class="nav__name dark:text-white">Entrenadores</span>
-                            </a>
+                            @if(Auth()->user()->role_id == 1)
+                                <a href="{{ route('entrenadores') }}" class="nav__link {{ Request::path() == "entrenadores" ? "active" : "" }}">
+                                    <i class='bx bx-user-voice nav__icon'></i>
+                                    <span class="nav__name dark:text-white">Entrenadores</span>
+                                </a>
+                            @endif
 
                             <a href="{{ route('pruebas') }}" class="nav__link {{ Request::path() == "pruebasfisicas" ? "active" : "" }}">
                                 <i class='bx bx-test-tube bx-burst-hover nav__icon'></i>

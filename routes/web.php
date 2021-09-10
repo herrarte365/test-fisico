@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\pdfController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,7 +32,11 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/grupos', function () {
 })->name('grupos');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/entrenadores', function () {
-    return view('livewire/entrenador/entrenadores');
+    if(Auth()->user()->role_id == 1){
+        return view('livewire/entrenador/entrenadores');
+    }else{
+        return back();
+    }
 })->name('entrenadores');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/pruebasfisicas', function () {
