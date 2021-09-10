@@ -22,7 +22,7 @@
                         </p>
                     </div> 
                     <div>
-                        <a href="{{ route('reportePruebaGrupoPDF', $test[0]->id) }}"><x-button-danger class="px-3 py-2">pdf</x-button-danger></a>
+                        <a target="_blank" href="{{ route('reportePruebaGrupoPDF', $test[0]->id) }}"><x-button-danger class="px-3 py-2">pdf</x-button-danger></a>
                     </div>
                 </div>
             </div>  
