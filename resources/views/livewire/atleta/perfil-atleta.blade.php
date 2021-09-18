@@ -92,21 +92,21 @@
                 <dd class="mt-1 text-sm text-white sm:mt-0 sm:col-span-2">
                 <ul class="border border-gray-200 rounded-md divide-y divide-gray-200">
                     @foreach ($pruebas as $prueba)
-                    <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
-                        
-                    <div class="w-0 flex-1 flex items-center">
-                        <!-- Heroicon name: solid/paper-clip -->
-                        <i class='bx bx-notepad bx-sm'></i>
-                        <span class="ml-2 flex-1 w-0 truncate">
-                            {{ $prueba->description }}
-                        </span>
-                    </div>
-                    <div class="ml-4 flex-shrink-0">
-                        <a wire:click="showPrueba({{ $prueba }})" class="cursor hover:text-cian-300">
-                            Detalles
-                        </a>
-                    </div>
-                    </li>
+                        <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+                            
+                        <div class="w-0 flex-1 flex items-center">
+                            <!-- Heroicon name: solid/paper-clip -->
+                            <i class='bx bx-notepad bx-sm'></i>
+                            <span class="ml-2 flex-1 w-0 truncate">
+                                {{ $prueba->description }}
+                            </span>
+                        </div>
+                        <div class="ml-4 flex-shrink-0">
+                            <a wire:click="showPrueba({{ $prueba }})" class="cursor hover:text-cian-300">
+                                Detalles
+                            </a>
+                        </div>
+                        </li>
                     @endforeach
                 </ul>
                 </dd>

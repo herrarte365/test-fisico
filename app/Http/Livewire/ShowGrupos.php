@@ -10,7 +10,6 @@ use App\Models\Municipality;
 use App\Models\Physical_test;
 use App\Models\Ps_detail;
 use App\Models\Ps_tests_athlete;
-use App\Models\Ps_tests_athletes;
 use App\Models\Test;
 use Exception;
 use Illuminate\Support\Facades\Auth;
@@ -70,12 +69,17 @@ class ShowGrupos extends Component
                 ]);
 
             break;
+
+            # mostrar el perfil del grupo.
             case 3:
+
+                $pruebas = Physical_test::where('group_id', '=',  $this->grupo->id)->get();
 
                 $this->show($this->grupo->id);
                 $atletas = Athlete::where('group_id', '=', $this->grupo->id)->get();
                 return view('livewire.grupo.perfil-grupo', [
-                    'atletas' => $atletas
+                    'atletas' => $atletas,
+                    'pruebas' => $pruebas
                 ]);
 
             break;

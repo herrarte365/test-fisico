@@ -48,6 +48,10 @@ Route::middleware(['auth:sanctum', 'verified'])
     ->get('/aplicarprueba/{atleta}', \App\Http\Livewire\AplicarPrueba::class)
     ->name('aplicarPrueba');
 
+Route::middleware(['auth:sanctum', 'verified'])->get('/Entrenamiento', function () {
+        return view('livewire/entrenamiento/entrenamientos');
+    })->name('entrenamientos');
+
 
 route::get('/reportePruebaGrupo/{id}', [pdfController::class, 'reportePruebaGrupoPDF'])->name('reportePruebaGrupoPDF');
 route::get('/reportePruebaAtleta/{id}', [pdfController::class, 'reportePruebaAtletaPDF'])->name('reportePruebaAtletaPDF');

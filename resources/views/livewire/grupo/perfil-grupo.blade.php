@@ -55,9 +55,17 @@
                     <dt class="text-sm font-medium text-gray-50">
                         Pruebas Físicas Aplicadas
                     </dt>
-                    <dd class="mt-1 text-sm text-white sm:mt-0 sm:col-span-2 flex justify-end">
-                        <x-button x-on:click="$wire.open = true">Agregar Prueba</x-button>
-                        
+                    <dd class="w-full mt-1 text-sm text-white sm:mt-0 sm:col-span-2 flex justify-end">
+                        <ul class="rounded-md divide-y divide-gray-200">
+                            <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+                                <x-button x-on:click="$wire.open = true">Agregar Prueba</x-button>
+                            </li>
+                            @foreach ($pruebas as $prueba)
+                                <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+                                        {{ $prueba->description }}
+                                </li>
+                            @endforeach
+                        </ul>
                     </dd>
                 </div>
             </dl>

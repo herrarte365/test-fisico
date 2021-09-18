@@ -251,6 +251,7 @@ class ShowAtletas extends Component
     # 🙂 CALCULADORA DE NIVELES
     public function calculadora($resultado, $prueba, $testId){
 
+        
         $level = 0;
         $puntos = 0;
         $rLimpio = str_replace(array(":"), '', $resultado);             # LIMPIEZA DE LA CADENA
@@ -289,9 +290,61 @@ class ShowAtletas extends Component
             }catch(Exception $e){
 
             }
+
+            if($testId == 5 || $testId == 6){
+
+
+                $alcance = Ps_detail::select('result')
+                    ->where('ps_test_athlete_id', '=', $this->prueba->id)
+                    ->where('test_id', '=', 5)
+                    ->first();
+                
+                    
+                $svsci = Ps_detail::select('result')
+                    ->where('ps_test_athlete_id', '=', $this->prueba->id)
+                    ->where('test_id', '=', 6)
+                    ->first();
+                
+                    
+                
+                $alcanceInt = floatval($alcance->result);
+                $svsciInt = floatval($svsci->result);
+
+                $despegue = ($svsciInt - $alcanceInt)*100;
+                
+                foreach($parametros as $p){
+
+                    if($despegue >= $p->min && $despegue <= $p->max){
+                        $level = $p->level;
+                        $puntos = $p->points;
+                    }
+    
+                }
+    
+                try{
+    
+                    DB::table('ps_details')
+                        ->where('ps_test_athlete_id', '=', $this->prueba->id)
+                        ->where('test_id', '=', 7)
+                        ->update(
+                            [
+                                'result' => $despegue,
+                                'level'  => $level,
+                                'points' => $puntos,
+                            ]
+                        );
+    
+                }catch(Exception $e){
+    
+                }
+
+            }
+
+            
         }else{
             $this->emit('alerta', 105);
         }
+
     }
 
     # 🙂 CALCULAR LOS RESULTADOS GENERALES

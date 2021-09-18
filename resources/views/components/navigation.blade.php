@@ -30,6 +30,10 @@
                                 <i class='bx bx-test-tube bx-burst-hover nav__icon'></i>
                                 <span class="nav__name dark:text-white">Prubas Físicas</span>
                             </a>
+                            <a href="{{ route('entrenamientos') }}" class="nav__link {{ Request::path() == "entrenamientos" ? "active" : "" }}">
+                                <i class='bx bx-receipt nav__icon'></i>
+                                <span class="nav__name dark:text-white">Entrenamiento</span>
+                            </a>
                         </div>
     
                         <div class="nav__items">

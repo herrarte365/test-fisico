@@ -115,7 +115,7 @@
                         </dt>
                         <dd class="mt-1 text-md text-gray-900 sm:mt-0 sm:col-span-2">
                             <div>
-                                <x-input-info type="number" value="{{ $detalles[6]->result }}" wire:change="calculadora($event.target.value, {{ $detalles[6]->id }}, {{ $detalles[6]->test_id }})">
+                                <x-input-info disabled type="number" value="{{ $detalles[6]->result }}" wire:change="calculadora($event.target.value, {{ $detalles[6]->id }}, {{ $detalles[6]->test_id }})">
                                     cm
                                 </x-input-info>
                             </div>

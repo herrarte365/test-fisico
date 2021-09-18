@@ -16,7 +16,11 @@ class CreatePhysicalWorkoutsTable extends Migration
         Schema::create('physical_workouts', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->unsignedBigInteger('coaches_id');
             $table->timestamps();
+
+            $table->foreign('coaches_id')->references('id')->on('coaches');
+
         });
     }
 
